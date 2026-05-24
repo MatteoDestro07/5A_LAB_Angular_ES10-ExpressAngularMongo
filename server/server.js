@@ -146,7 +146,7 @@ app.get("/api/students", checkToken, (req, res) => {
 //                { "eta": 20 }
 // ----------------------------------------------------------
 app.post("/api/students/cerca", checkToken, (req, res) => {
-    
+
 });
 
 // ----------------------------------------------------------
@@ -157,7 +157,12 @@ app.post("/api/students/cerca", checkToken, (req, res) => {
 //  Body richiesto: { "cognome": "Rossi" }
 // ----------------------------------------------------------
 app.post("/api/students/cercaPerCognome", checkToken, (req, res) => {
-    
+    mongoFunctions.find(DB,C_STUDENTS,req.body,(err,data)=>{
+        if(err.codeErr == -1)
+            res.send({data:data, newToken:req.newToken});
+        else
+            sendError(res,err.codeErr,err.message);
+    });
 });
 
 // ----------------------------------------------------------
@@ -168,7 +173,12 @@ app.post("/api/students/cercaPerCognome", checkToken, (req, res) => {
 //  Risposta: { msg: "Studente inserito", id: "..." }
 // ----------------------------------------------------------
 app.post("/api/students/inserisci", checkToken, (req, res) => {
-    
+    mongoFunctions.insert(DB,C_STUDENTS,req.body,(err,data)=>{
+        if(err.codeErr == -1)
+            res.send({msg:"Studente inserito", id: data.insertedId, newToken:req.newToken});
+        else
+            sendError(res,err.codeErr,err.message); 
+    });
 });
 
 // ----------------------------------------------------------
@@ -180,7 +190,12 @@ app.post("/api/students/inserisci", checkToken, (req, res) => {
 //  lasciando intatti tutti gli altri campi del documento.
 // ----------------------------------------------------------
 app.post("/api/students/modifica", checkToken, (req, res) => {
-    
+    mongoFunctions.update(DB,C_STUDENTS,{nome:req.body.nome, cognome:req.body.cognome},{$set:req.body.dati},(err,data)=>{
+        if(err.codeErr == -1)
+            res.send({msg:"Studente modificato", newToken:req.newToken});
+        else
+            sendError(res,err.codeErr,err.message);
+    });
 });
 
 // ----------------------------------------------------------
@@ -190,7 +205,12 @@ app.post("/api/students/modifica", checkToken, (req, res) => {
 //  Body: { "nome": "Mario", "cognome": "Rossi" }
 // ----------------------------------------------------------
 app.post("/api/students/elimina", checkToken, (req, res) => {
-    
+    mongoFunctions.delete(DB,C_STUDENTS,{nome:req.body.nome, cognome:req.body.cognome},(err,data)=>{
+        if(err.codeErr == -1)
+            res.send({msg:"Studente eliminato", newToken:req.newToken});
+        else
+            sendError(res,err.codeErr,err.message);
+    });
 });
 
 // ----------------------------------------------------------
@@ -199,7 +219,12 @@ app.post("/api/students/elimina", checkToken, (req, res) => {
 //  La pipeline è un array di "stage" che trasformano i dati.
 // ----------------------------------------------------------
 app.post("/api/students/statistiche", checkToken, (req, res) => {
-    
+    mongoFunctions.aggregate(DB,C_STUDENTS,req.body,(err,data)=>{
+        if(err.codeErr == -1)
+            res.send({data:data, newToken:req.newToken});
+        else
+            sendError(res,err.codeErr,err.message);
+    });
 });
 
 // ============================================================

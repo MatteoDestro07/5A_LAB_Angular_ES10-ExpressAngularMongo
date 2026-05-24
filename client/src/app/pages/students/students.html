@@ -20,7 +20,7 @@
     <div class="alert-error">⚠️ {{ errorMessage }}</div>
     }
 
-    <!--&lt;!&ndash; Statistiche aggregate &ndash;&gt;
+    <!-- Statistiche aggregate -->
     @if (showStats) {
     <div class="stats-card">
       <h3>📊 Studenti per città (aggregate)</h3>
@@ -33,9 +33,9 @@
     }
     </div>
   </div>
-    }
+}
 
-    &lt;!&ndash; Barra azioni &ndash;&gt;
+    <!--&lt;!&ndash; Barra azioni &ndash;&gt;-->
     <div class="toolbar">
       <div class="search-group">
         <input
@@ -51,7 +51,7 @@
       <button class="btn-primary" (click)="nuovoStudente()">➕ Nuovo studente</button>
     </div>
 
-    &lt;!&ndash; Form inserimento / modifica &ndash;&gt;
+    <!-- Form inserimento / modifica -->
     @if (showForm) {
     <div class="form-card">
       <h3>{{ isEditing ? '✏️ Modifica studente' : '➕ Nuovo studente' }}</h3>
@@ -70,15 +70,15 @@
           </div>
           <div class="form-group">
             <label>Via</label>
-            <input type="text" [(ngModel)]="formData.indirizzo!.via" placeholder="Via e numero" />
+            <input type="text" [(ngModel)]="formData.indirizzo.via" placeholder="Via e numero" />
           </div>
           <div class="form-group">
             <label>Città</label>
-            <input type="text" [(ngModel)]="formData.indirizzo!['citta']" placeholder="Città" />
+            <input type="text" [(ngModel)]="formData.indirizzo.citta" placeholder="Città" />
           </div>
           <div class="form-group">
             <label>CAP</label>
-            <input type="text" [(ngModel)]="formData.indirizzo!.CAP" placeholder="CAP" />
+            <input type="text" [(ngModel)]="formData.indirizzo.CAP" placeholder="CAP" />
           </div>
           <div class="form-group full-width">
             <label>Interessi (separati da virgola)</label>
@@ -94,7 +94,7 @@
           <button class="btn-secondary" (click)="annulla()">Annulla</button>
         </div>
       </div>
-    }-->
+    }
 
     <!-- Lista studenti a card -->
     @if (loading) {
@@ -133,10 +133,10 @@
         </div>
         }
       </div>
-      <!--<div class="card-footer">
+      <div class="card-footer">
         <button class="btn-edit" (click)="modificaStudente(s)">✏️ Modifica</button>
         <button class="btn-delete" (click)="elimina(s)">🗑️ Elimina</button>
-      </div>-->
+      </div>
     </div>
     }
     </div>
